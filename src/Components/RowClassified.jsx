@@ -3,30 +3,31 @@ import { FaTrashAlt } from "react-icons/fa";
 import { CiEdit } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
 const Row = ({ content, hr1, hr2, hr3 }) => {
-    const navigate = useNavigate();
-    const navigations = () => {
-        hr1 === "/classifieds/classifiedsdepartments" ? navigate(`/classifieds/${content.id}/classifiedsdepartments`) : "";
-    }
+  const navigate = useNavigate();
+  const navigations = () => {
+    hr1 === "/classifieds/classifiedsdepartments"
+      ? navigate(`/classifieds/${content.id}/classifiedsdepartments`)
+      : "";
+  };
   return (
     <tbody>
       <tr>
         <td>{content?.id}</td>
         <td>{content?.name}</td>
-        {content?.icon && <td>
-          <div className="flex justify-center">
-            <div className="avatar">
-              <div className="mask mask-squircle w-16 h-16">
-                <img src={content?.icon} alt="icon" />
+        {content?.icon && (
+          <td>
+            <div className="flex justify-center">
+              <div className="avatar">
+                <div className="mask mask-squircle w-16 h-16">
+                  <img src={content?.icon} alt="icon" />
+                </div>
               </div>
             </div>
-            {/* <div>
-            <div className="font-bold">Hart Hagerty</div>
-            <div className="text-sm opacity-50">United States</div>
-          </div> */}
-          </div>
-        </td>}
+          </td>
+        )}
         <th>
-          <button onClick={() => navigate(`/`)}
+          <button
+            onClick={() => navigate(`/`)}
             className="relative mx-1 align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none 
             disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs bg-red-500 text-white shadow-md shadow-red-500/20 hover:shadow-lg
              hover:shadow-red-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
@@ -36,7 +37,6 @@ const Row = ({ content, hr1, hr2, hr3 }) => {
               <FaTrashAlt size={20} />
             </span>
           </button>
-
           <button
             className="relative mx-1 align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs bg-green-500 text-white shadow-md shadow-green-500/20 hover:shadow-lg hover:shadow-green-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
             type="button"
@@ -45,31 +45,38 @@ const Row = ({ content, hr1, hr2, hr3 }) => {
               <CiEdit size={23} />
             </span>
           </button>
-          {hr1 !== "none" && <button onClick={navigations}
-            className="relative m-1  align-middle select-none font-sans font-medium text-center uppercase transition-all
+          {hr1 !== "none" && (
+            <button
+              onClick={navigations}
+              className="relative m-1  align-middle select-none font-sans font-medium text-center uppercase transition-all
              disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-[120px] max-w-[120px] 
-             h-10 max-h-[40px] rounded-lg text-xs bg-blue-500 text-white shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
-            type="button"
-          >
-            <span className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-            {hr1 === "/classifieds/classifiedsdepartments" ? "departments" : hr1}
-            </span>
-          </button>}
-          {hr2 !== "none" && <button
-            className="relative m-1  align-middle select-none font-sans font-medium text-center uppercase transition-all
+             h-10 max-h-[40px] rounded-lg text-xs bg-blue-500 text-white shadow-md shadow-blue-500/20 hover:shadow-lg 
+             hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
+              type="button"
+            >
+              <span className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+                {hr1 === "/classifieds/classifiedsdepartments"
+                  ? "departments"
+                  : hr1}
+              </span>
+            </button>
+          )}
+          {hr2 !== "none" && (
+            <button
+              className="relative m-1  align-middle select-none font-sans font-medium text-center uppercase transition-all
              disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-[120px] max-w-[120px] 
-             h-10 max-h-[40px] rounded-lg text-xs bg-blue-500 text-white shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
-            type="button"
-          >
-            <span className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+             h-10 max-h-[40px] rounded-lg text-xs bg-blue-500 text-white shadow-md shadow-blue-500/20 hover:shadow-lg 
+             hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
+              type="button"
+            >
+              <span className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
                 {hr2 === "classifiedsdepartments" ? "departments" : hr2}
-            </span>
-          </button>}
-          {/* <button className="btn btn-info h-10">Info</button> */}
+              </span>
+            </button>
+          )}
         </th>
       </tr>
     </tbody>
   );
 };
-
 export default Row;

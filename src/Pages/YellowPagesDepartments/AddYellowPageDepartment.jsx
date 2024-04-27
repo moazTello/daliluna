@@ -11,12 +11,10 @@ const AddYellowPageDepartment = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await addYellowPageDepartment({ name: name, icon: icon });
-    console.log(name, icon);
   };
   return (
     <div className="flex flex-col items-center justify-center min-w-96 mx-auto">
       <div className="w-full p-6 rounded-lg shadow-md bg-white bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0 ">
-        {/* <img src={MiniLogo} alt=''/> */}
         <h1 className="text-base font-semibold text-start mt-5 text-gray-900">
           Add Yellow Page Department
         </h1>
@@ -41,7 +39,6 @@ const AddYellowPageDepartment = () => {
           {!icon && <IoMdCloudUpload />}
           <div>
             <button
-              // onClick={handleSubmit}
               type="submit"
               disabled={loading}
               className="btn min-h-[55px] mt-5 mb-5 p-5 btn-block items-center justify-center"
@@ -58,5 +55,4 @@ const AddYellowPageDepartment = () => {
     </div>
   );
 };
-
 export default AddYellowPageDepartment;

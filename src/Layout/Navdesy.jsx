@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import owl from '../assets/images/owl.webp'
+import owl from "../assets/images/owl.webp";
 const Navdesy = () => {
   return (
     <div className="navbar bg-base-100 fixed z-20 px-10">
@@ -52,10 +52,7 @@ const Navdesy = () => {
             className="btn btn-ghost btn-circle avatar"
           >
             <div className="w-10 rounded-full">
-              <img
-                alt="Tailwind CSS Navbar component"
-                src={owl}
-              />
+              <img alt="Tailwind CSS Navbar component" src={owl} />
             </div>
           </div>
           <ul

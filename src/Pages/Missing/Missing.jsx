@@ -1,16 +1,11 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-
+import React from "react";
+import { Link } from "react-router-dom";
 const Missing = () => {
   return (
-    <div className='container'>
-      <div className='loginbox'>
-          this page is not exists
-      </div>
-      <Link to='/newkamal'>Go Back</Link>
+    <div className=''>
+      <div className="">this page is not exists</div>
+      <Link to="/">Go Back</Link>
     </div>
-
-  )
-}
-
-export default Missing
+  );
+};
+export default Missing;

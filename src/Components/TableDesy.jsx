@@ -25,5 +25,4 @@ const TableDesy = ({ children, icon }) => {
     </div>
   );
 };
-
 export default TableDesy;

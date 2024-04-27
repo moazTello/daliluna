@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
-import Button from "../../Components/Button";
 import { useNavigate } from "react-router-dom";
 import useEditClassifiedDepartment from "../../hooks/useEditClassifiedDepartment";
 import { useParams } from "react-router-dom";
 import { IoMdCloudUpload } from "react-icons/io";
-const EditYellowPagesDepartment = ({ item }) => {
+const EditYellowPagesDepartment = () => {
   const { yellowpageId, yellowdepartmentId } = useParams();
   const handleImage = (e) => {
     setEditedIcon(e.target.files[0]);
@@ -37,7 +36,6 @@ const EditYellowPagesDepartment = ({ item }) => {
   return (
     <div className="flex flex-col items-center justify-center w-11/12 mx-auto">
       <div className="w-full p-6 rounded-lg shadow-md bg-white bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0 ">
-        {/* <img src={MiniLogo} alt=''/> */}
         <h1 className="text-base font-semibold text-start mt-5 text-gray-900">
           Edit Yellow Page Department
         </h1>
@@ -70,7 +68,6 @@ const EditYellowPagesDepartment = ({ item }) => {
               className="max-w-28 max-h-28"
               src={
                 editedIcon.name ? URL.createObjectURL(editedIcon) : editedIcon
-                // editedIcon
               }
               alt="icon"
             />
@@ -78,7 +75,6 @@ const EditYellowPagesDepartment = ({ item }) => {
           {!editedIcon && <IoMdCloudUpload />}
           <div>
             <button
-              // onClick={handleSubmit}
               type="submit"
               disabled={loading}
               className="btn min-h-[55px] mt-5 mb-5 p-5 btn-block items-center justify-center"
@@ -95,5 +91,4 @@ const EditYellowPagesDepartment = ({ item }) => {
     </div>
   );
 };
-
 export default EditYellowPagesDepartment;

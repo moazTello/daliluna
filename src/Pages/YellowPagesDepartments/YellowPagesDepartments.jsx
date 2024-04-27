@@ -31,7 +31,7 @@ const YellowPagesDepartments = () => {
             <Row
               key={index}
               content={item}
-              hr1="elements"
+              hr1="ELEMENTS"
               hr2="none"
               hr3="none"
               trash="none"
@@ -43,5 +43,4 @@ const YellowPagesDepartments = () => {
     </div>
   );
 };
-
 export default YellowPagesDepartments;
