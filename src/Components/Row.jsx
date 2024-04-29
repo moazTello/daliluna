@@ -5,11 +5,13 @@ import { useNavigate } from "react-router-dom";
 import useDeleteClassifieds from "../hooks/useDeleteClassified";
 import useDeleteYellowPages from "../hooks/useDeleteYellowPage";
 import useDeleteClassifiedDepartment from "../hooks/useDeleteClassifiedDepartment";
+import useDeleteYellowPageDepartment from "../hooks/useDeleteYellowPageDepartment";
 const Row = ({ content, hr1, hr2, hr3, trash, fatherId }) => {
   const { deleteClassifieds, loading } = useDeleteClassifieds();
   const { deleteClassifiedDepartment, loadingDeleteDepartment } =
     useDeleteClassifiedDepartment();
   const { deleteYellowpage, deleteYellowloading } = useDeleteYellowPages();
+  const { loadingDeleteYellowPageDepartment, deleteYellowPageDepartment } = useDeleteYellowPageDepartment();
   const navigate = useNavigate();
   const deleteclass = async () => {
     hr1 === "/classifieds/classifiedsdepartments" &&
@@ -18,13 +20,15 @@ const Row = ({ content, hr1, hr2, hr3, trash, fatherId }) => {
       (await deleteClassifiedDepartment(fatherId, content.id));
     hr1 === "/yellowpages/yellowpagesdepartments" &&
       (await deleteYellowpage(content.id));
+    hr1 === "ELEMENTS" && (await deleteYellowPageDepartment(fatherId,content.id));
   };
   const navigation1 = () => {
     hr1 === "/classifieds/classifiedsdepartments"
       ? navigate(`/classifieds/${content.id}/classifiedsdepartments`)
       : hr1 === "/yellowpages/yellowpagesdepartments"
       ? navigate(`/yellowpages/${content.id}/yellowpagesdepartments`)
-      : "";
+      : (hr1 === "ADD POST" && hr2 === "ADD FIELD") ?  
+      navigate(`/classifieds/${fatherId}/classifiedsdepartments/${content.id}/addfield`): '';
   };
   const navigation2 = () => {
     hr1 === "/classifieds/classifiedsdepartments"
@@ -38,18 +42,16 @@ const Row = ({ content, hr1, hr2, hr3, trash, fatherId }) => {
     hr1 === "/yellowpages/yellowpagesdepartments"
       ? navigate(`/yellowpages/edityellowpage/${content.id}`)
       : "";
-    hr1 === "/ELEMENTS"
+    hr1 === "ELEMENTS"
       ? navigate(
           `/yellowpages/${fatherId}/yellowpagesdepartments/${content.id}`
         )
-      : "";
+      : '';
   };
   const navigation3 = () => {
-    hr1 === "ADD POST"
-      ? navigate(
-          `/classifieds/${fatherId}/classifiedsdepartments/${content.id}`
-        )
-      : "";
+    (hr1 === "ADD POST" && hr2 === "SHOW FIELDS") ?  
+    // navigate(`/classifieds/${fatherId}/classifiedsdepartments/${content.id}/addfield`): '';
+    navigate(`/classifieds/${fatherId}/classifiedsdepartments/${content.id}/field`): '';
   };
   return (
     <tbody>
@@ -76,10 +78,10 @@ const Row = ({ content, hr1, hr2, hr3, trash, fatherId }) => {
             type="button"
           >
             <span className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-              {!loading && !loadingDeleteDepartment && !deleteYellowloading && (
+              {!loading && !loadingDeleteDepartment && !deleteYellowloading && !loadingDeleteYellowPageDepartment && (
                 <FaTrashAlt size={20} />
               )}
-              {(loading || loadingDeleteDepartment || deleteYellowloading) && (
+              {(loading || loadingDeleteDepartment || deleteYellowloading || loadingDeleteYellowPageDepartment) && (
                 <p className="loading loading-spinner bg-white"></p>
               )}
             </span>
@@ -115,7 +117,7 @@ const Row = ({ content, hr1, hr2, hr3, trash, fatherId }) => {
             </button>
           )}
           {hr2 !== "none" && (
-            <button
+            <button onClick={navigation3}
               className="relative m-1  align-middle select-none font-sans font-medium text-center uppercase transition-all
              disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-[120px] max-w-[120px] 
              h-10 max-h-[40px] rounded-lg text-xs bg-blue-500 text-white shadow-md shadow-blue-500/20 hover:shadow-lg 

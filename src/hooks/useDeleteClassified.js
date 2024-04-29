@@ -6,6 +6,8 @@ const useDeleteClassifieds = () => {
   const { getClassifieds } = useClassifieds();
   const [loading, setLoading] = useState(false);
   const deleteClassifieds = async (classifiedId) => {
+    const conferm = confermation();
+    if (!conferm) return;
     try {
       setLoading(true);
       await axiosPrivateTokenized.delete(
@@ -31,3 +33,14 @@ const useDeleteClassifieds = () => {
   return { loading, deleteClassifieds };
 };
 export default useDeleteClassifieds;
+const confermation = () => {
+  if (
+    confirm(
+      "Are you sure you want to delete this classified from the database?"
+    )
+  ) {
+    return true;
+  } else {
+    return false;
+  }
+};

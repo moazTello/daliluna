@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useEditClassifiedDepartment from "../../hooks/useEditClassifiedDepartment";
+import useEditYellowPageDepartment from "../../hooks/useEditYellowPageDepartments";
 import { useParams } from "react-router-dom";
 import { IoMdCloudUpload } from "react-icons/io";
 const EditYellowPagesDepartment = () => {
@@ -82,7 +83,7 @@ const EditYellowPagesDepartment = () => {
               {loading ? (
                 <p className="loading loading-spinner bg-blue-600"></p>
               ) : (
-                "EDIT"
+                "UPDATE"
               )}
             </button>
           </div>

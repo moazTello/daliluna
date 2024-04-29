@@ -7,6 +7,8 @@ const useDeleteClassifiedDepartment = () => {
   const [loadingDeleteDepartment, setLoading] = useState(false);
   const deleteClassifiedDepartment = async (classifiedId, departmentId) => {
     try {
+      const conferm = confermation();
+      if (!conferm) return;
       setLoading(true);
       await axiosPrivateTokenized.delete(
         `/dashboard/classifieds/${classifiedId}/classified-departments/${departmentId}`,
@@ -31,3 +33,14 @@ const useDeleteClassifiedDepartment = () => {
   return { loadingDeleteDepartment, deleteClassifiedDepartment };
 };
 export default useDeleteClassifiedDepartment;
+const confermation = () => {
+  if (
+    confirm(
+      "Are you sure you want to delete this classified department from the database?"
+    )
+  ) {
+    return true;
+  } else {
+    return false;
+  }
+};

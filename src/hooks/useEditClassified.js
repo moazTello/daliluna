@@ -81,7 +81,7 @@ export default useEditClassified;
 
 function handleInputErrors({ name, icon }) {
   if (!name) {
-    toast.error('Please fill all the field ! ');
+    toast.error("Please fill all the field ! ");
     return false;
   }
   if (icon.name === 0) {

@@ -7,6 +7,8 @@ const useDeleteYellowPages = () => {
   const [deleteYellowloading, setLoading] = useState(false);
   const deleteYellowpage = async (yellowpageId) => {
     try {
+      const conferm = confermation();
+      if (!conferm) return;
       setLoading(true);
       await axiosPrivateTokenized.delete(
         `/dashboard/yellow-pages/${yellowpageId}`,
@@ -31,3 +33,14 @@ const useDeleteYellowPages = () => {
   return { deleteYellowloading, deleteYellowpage };
 };
 export default useDeleteYellowPages;
+const confermation = () => {
+  if (
+    confirm(
+      "Are you sure you want to delete this classified from the database?"
+    )
+  ) {
+    return true;
+  } else {
+    return false;
+  }
+};

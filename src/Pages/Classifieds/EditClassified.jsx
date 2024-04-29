@@ -76,7 +76,7 @@ const EditClassified = () => {
               {loading ? (
                 <p className="loading loading-spinner bg-blue-600"></p>
               ) : (
-                "EDIT"
+                "UPDATE"
               )}
             </button>
           </div>

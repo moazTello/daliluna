@@ -32,7 +32,7 @@ const ClassifiedsDepartments = () => {
               key={index}
               content={item}
               hr1="ADD POST"
-              hr2="ADD FIELD"
+              hr2="SHOW FIELDS"
               hr3="none"
               fatherId={departmentId}
             />

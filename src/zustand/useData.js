@@ -13,6 +13,8 @@ const useDataStore = create((set) => ({
   yellowPagesDepartments: [],
   setYellowPagesDepartments: (yellowPagesDepartments) =>
     set({ yellowPagesDepartments }),
+  field:[],
+  setField:(field) => set({field}),
   countries: [],
   setCountries: (countries) => set({ countries }),
   cities: [],
@@ -23,6 +25,27 @@ const useDataStore = create((set) => ({
   setPosts: (posts) => set({ posts }),
   elements: [],
   setElements: (elements) => set({ elements }),
+  setRestField:(field) => set({
+      name:null,
+      placeholder:null,
+      min:null,
+      max:null,
+      type:null,
+      required:null,
+      searched:null,
+      values:[]
+  })
+  // {
+  //   name:null,
+  //   placeholder:null,
+  //   min:null,
+  //   max:null,
+  //   type:null,
+  //   required:null,
+  //   searched:null,
+  //   values:[]
+  // }
+
 }));
 
 export default useDataStore;

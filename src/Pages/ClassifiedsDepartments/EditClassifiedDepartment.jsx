@@ -25,7 +25,7 @@ const EditClassifiedDepartment = () => {
       classifiedid,
       classifiedDepartmentId
     );
-    navigate("/classifieds");
+    navigate(`/classifieds/${classifiedid}/classifiedsdepartments`);
   };
   return (
     <div className="flex flex-col items-center justify-center w-11/12 mx-auto">
@@ -56,7 +56,7 @@ const EditClassifiedDepartment = () => {
               {loading ? (
                 <p className="loading loading-spinner bg-blue-600"></p>
               ) : (
-                "ADD"
+                "UPDATE"
               )}
             </button>
           </div>

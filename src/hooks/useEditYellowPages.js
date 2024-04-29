@@ -12,9 +12,10 @@ const useEditYellowPages =  () => {
         try{
             setLoading(true);
             const formData = new FormData();
+            console.log(typeof(data.image));
             formData.append("name", data.name);
             formData.append("description", data.description);
-            formData.append("image", data.image);
+            formData.append("image",typeof(data.image) === 'string' ? '' : data.image );
             formData.append("_method","PUT");
             const res = await axiosPrivateTokenized.post(`/dashboard/yellow-pages/${yellowpageId}`,formData,{
                 headers:{

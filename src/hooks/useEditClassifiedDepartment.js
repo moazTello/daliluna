@@ -65,7 +65,6 @@ const useEditClassifiedDepartment = () => {
         throw new Error(data1.error);
       }
       setEditedName(data1.name);
-      toast.success("Classified Edited Succesfuly !");
     } catch (err) {
       toast.error(err.message);
     } finally {
