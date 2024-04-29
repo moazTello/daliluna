@@ -7,12 +7,13 @@ import { Link, useParams } from "react-router-dom";
 const FieldClassDepartment = () => {
   const { classifiedid, classifiedDepartmentId } = useParams();
   const { loading, getFieldsDepartments } = useFieldClassDepartment();
-  const { field } = useDataStore();
+  const { field, setField } = useDataStore();
   useEffect(() => {
     const handleFields = async () => {
       await getFieldsDepartments(classifiedDepartmentId);
     };
     handleFields();
+    return () => { setField(''); };
   }, []);
   return (
     <div className="w-full bg-base-100 pt-10">
@@ -26,15 +27,16 @@ const FieldClassDepartment = () => {
       {loading ? (
         <p className="loading loading-spinner bg-blue-600"></p>
       ) : (
-        <TableDesy icon="false">
-          {field?.map((item, index) => (
+        <TableDesy field ='field' icon="false">
+          {field.length > 0 && field?.map((item, index) => (
             <Row
               key={index}
               content={item}
               hr1="none"
               hr2="none"
-              hr3="none"
+              hr3="EDIT_FIELD"
               fatherId={classifiedDepartmentId}
+              grand={classifiedid}
             />
           ))}
         </TableDesy>

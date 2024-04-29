@@ -19,6 +19,9 @@ import EditYellowPagesDepartment from "./Pages/YellowPagesDepartments/EditYellow
 import { Toaster } from "react-hot-toast";
 import AddFieldClassDepartment from "./Pages/ClassifiedsDepartments/Fields/AddFieldClassDepartment";
 import FieldClassDepartment from "./Pages/ClassifiedsDepartments/Fields/FieldClassifiedDepartment";
+import EditFieldClassDepartment from "./Pages/ClassifiedsDepartments/Fields/EditFieldClassDepartment";
+import Elements from "./Pages/YellowPagesDepartments/Elements/Elements";
+import AddElement from "./Pages/YellowPagesDepartments/Elements/AddElement";
 function App() {
   return (
     <>
@@ -41,6 +44,10 @@ function App() {
               element={<AddFieldClassDepartment />}
             />
             <Route
+              path="/classifieds/:classifiedid/classifiedsdepartments/:classifiedDepartmentId/edit/:fieldId"
+              element={<EditFieldClassDepartment />}
+            />
+            <Route
               path="/classifieds/editclassified/:classifiedid"
               element={<EditClassified />}
             />
@@ -59,6 +66,14 @@ function App() {
             <Route
               path="/yellowpages/:yellowpageId/yellowpagesdepartments/:yellowdepartmentId"
               element={<EditYellowPagesDepartment />}
+            />
+            <Route
+              path="/yellowpages/:yallowPageId/yellowpagesdepartments/:yellowPageDepartmentId/elements"
+              element={<Elements />}
+            />
+            <Route
+              path="/yellowpages/:yallowPageId/yellowpagesdepartments/:yellowPageDepartmentId/addelement"
+              element={<AddElement />}
             />
           </Route>
           <Route

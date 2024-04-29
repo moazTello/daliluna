@@ -2,14 +2,14 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import axiosPrivateTokenized from "../api/DataTransfer";
 import useDataStore from "../zustand/useData";
-const useFieldClassDepartment = () => {
+const useElements = () => {
   const [loading, setLoading] = useState(false);
-  const { setField } = useDataStore();
-  const getFieldsDepartments = async (departmentId) => {
+  const { setElements } = useDataStore();
+  const getElements = async (departmentId) => {
     try {
       setLoading(true);
       const res = await axiosPrivateTokenized.get(
-        `/dashboard/classified-departments/${departmentId}/classified-department-fields`,
+        `dashboard/yellow-page-departments/${departmentId}/elements`,
         {
           headers: {
             Accept: "application/json",
@@ -25,13 +25,13 @@ const useFieldClassDepartment = () => {
       if (data.error) {
         throw new Error(data.error);
       }
-      setField(data);
+      setElements(data);
     } catch (err) {
       toast.error(err.message);
     } finally {
       setLoading(false);
     }
   };
-  return { loading, getFieldsDepartments };
+  return { loading, getElements };
 };
-export default useFieldClassDepartment;
+export default useElements;

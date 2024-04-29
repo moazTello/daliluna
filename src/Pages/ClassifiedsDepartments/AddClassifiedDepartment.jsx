@@ -26,7 +26,7 @@ const AddClassifiedDepartment = () => {
             />
           </div>
           <div>
-            <buttons
+            <button
               type="submit"
               disabled={loading}
               className="btn min-h-[55px] mt-5 mb-5 p-5 btn-block items-center justify-center"
@@ -36,7 +36,7 @@ const AddClassifiedDepartment = () => {
               ) : (
                 "ADD"
               )}
-            </buttons>
+            </button>
           </div>
         </form>
       </div>

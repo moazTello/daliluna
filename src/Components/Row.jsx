@@ -6,12 +6,16 @@ import useDeleteClassifieds from "../hooks/useDeleteClassified";
 import useDeleteYellowPages from "../hooks/useDeleteYellowPage";
 import useDeleteClassifiedDepartment from "../hooks/useDeleteClassifiedDepartment";
 import useDeleteYellowPageDepartment from "../hooks/useDeleteYellowPageDepartment";
-const Row = ({ content, hr1, hr2, hr3, trash, fatherId }) => {
+import useDeleteFieldClassDepartment from "../hooks/useDeleteFieldClassDepartment";
+const Row = ({ content, hr1, hr2, hr3, trash, fatherId, grand }) => {
   const { deleteClassifieds, loading } = useDeleteClassifieds();
   const { deleteClassifiedDepartment, loadingDeleteDepartment } =
     useDeleteClassifiedDepartment();
+  const { loadingDeleteDepartmentField, deleteDepartmentField } =
+    useDeleteFieldClassDepartment();
   const { deleteYellowpage, deleteYellowloading } = useDeleteYellowPages();
-  const { loadingDeleteYellowPageDepartment, deleteYellowPageDepartment } = useDeleteYellowPageDepartment();
+  const { loadingDeleteYellowPageDepartment, deleteYellowPageDepartment } =
+    useDeleteYellowPageDepartment();
   const navigate = useNavigate();
   const deleteclass = async () => {
     hr1 === "/classifieds/classifiedsdepartments" &&
@@ -20,15 +24,27 @@ const Row = ({ content, hr1, hr2, hr3, trash, fatherId }) => {
       (await deleteClassifiedDepartment(fatherId, content.id));
     hr1 === "/yellowpages/yellowpagesdepartments" &&
       (await deleteYellowpage(content.id));
-    hr1 === "ELEMENTS" && (await deleteYellowPageDepartment(fatherId,content.id));
+    hr1 === "ELEMENTS" &&
+      (await deleteYellowPageDepartment(fatherId, content.id));
+    hr3 === "EDIT_FIELD" && (await deleteDepartmentField(fatherId, content.id));
   };
   const navigation1 = () => {
     hr1 === "/classifieds/classifiedsdepartments"
       ? navigate(`/classifieds/${content.id}/classifiedsdepartments`)
       : hr1 === "/yellowpages/yellowpagesdepartments"
       ? navigate(`/yellowpages/${content.id}/yellowpagesdepartments`)
-      : (hr1 === "ADD POST" && hr2 === "ADD FIELD") ?  
-      navigate(`/classifieds/${fatherId}/classifiedsdepartments/${content.id}/addfield`): '';
+      : hr1 === "ADD POST" && hr2 === "ADD FIELD"
+      ? navigate(
+          `/classifieds/${fatherId}/classifiedsdepartments/${content.id}/addfield`
+        )
+      : "";
+    (hr1 ===
+      "/yellowpages/:yallowPageId/yellowpagesdepartments/:yellowPageDepartmentId/elements") ?
+      (
+        console.log("there"),
+      navigate(
+        `/yellowpages/${fatherId}/yellowpagesdepartments/${grand}/elements`
+      )):'';
   };
   const navigation2 = () => {
     hr1 === "/classifieds/classifiedsdepartments"
@@ -46,12 +62,19 @@ const Row = ({ content, hr1, hr2, hr3, trash, fatherId }) => {
       ? navigate(
           `/yellowpages/${fatherId}/yellowpagesdepartments/${content.id}`
         )
-      : '';
+      : hr3 === "EDIT_FIELD"
+      ? navigate(
+          `/classifieds/${grand}/classifiedsdepartments/${fatherId}/edit/${content.id}`
+        )
+      : "";
   };
   const navigation3 = () => {
-    (hr1 === "ADD POST" && hr2 === "SHOW FIELDS") ?  
-    // navigate(`/classifieds/${fatherId}/classifiedsdepartments/${content.id}/addfield`): '';
-    navigate(`/classifieds/${fatherId}/classifiedsdepartments/${content.id}/field`): '';
+    hr1 === "ADD POST" && hr2 === "SHOW FIELDS"
+      ? // navigate(`/classifieds/${fatherId}/classifiedsdepartments/${content.id}/addfield`): '';
+        navigate(
+          `/classifieds/${fatherId}/classifiedsdepartments/${content.id}/field`
+        )
+      : "";
   };
   return (
     <tbody>
@@ -69,6 +92,16 @@ const Row = ({ content, hr1, hr2, hr3, trash, fatherId }) => {
             </div>
           </td>
         )}
+        {content?.type && (
+          <>
+            <td>{content?.placeholder}</td>
+            <td>{content?.type}</td>
+            <td>{content?.max}</td>
+            <td>{content?.min}</td>
+            <td>{content?.required === "0" ? "T" : "X"}</td>
+            <td>{content?.searched === "0" ? "T" : "X"}</td>
+          </>
+        )}
         <th>
           <button
             onClick={deleteclass}
@@ -78,10 +111,16 @@ const Row = ({ content, hr1, hr2, hr3, trash, fatherId }) => {
             type="button"
           >
             <span className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-              {!loading && !loadingDeleteDepartment && !deleteYellowloading && !loadingDeleteYellowPageDepartment && (
-                <FaTrashAlt size={20} />
-              )}
-              {(loading || loadingDeleteDepartment || deleteYellowloading || loadingDeleteYellowPageDepartment) && (
+              {!loading &&
+                !loadingDeleteDepartment &&
+                !deleteYellowloading &&
+                !loadingDeleteYellowPageDepartment &&
+                !loadingDeleteDepartmentField && <FaTrashAlt size={20} />}
+              {(loading ||
+                loadingDeleteDepartment ||
+                deleteYellowloading ||
+                loadingDeleteYellowPageDepartment ||
+                loadingDeleteDepartmentField) && (
                 <p className="loading loading-spinner bg-white"></p>
               )}
             </span>
@@ -117,7 +156,8 @@ const Row = ({ content, hr1, hr2, hr3, trash, fatherId }) => {
             </button>
           )}
           {hr2 !== "none" && (
-            <button onClick={navigation3}
+            <button
+              onClick={navigation3}
               className="relative m-1  align-middle select-none font-sans font-medium text-center uppercase transition-all
              disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-[120px] max-w-[120px] 
              h-10 max-h-[40px] rounded-lg text-xs bg-blue-500 text-white shadow-md shadow-blue-500/20 hover:shadow-lg 

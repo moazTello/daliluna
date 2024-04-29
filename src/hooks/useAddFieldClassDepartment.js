@@ -25,11 +25,12 @@ const useAddFieldClassDepartment = () => {
       formData.append("min", data.min);
       formData.append("max", data.max);
       formData.append("type", data.type);
-      formData.append("required", data.require === 0 ? "0" : "1");
-      formData.append("searched", data.search === 0 ? "0" : "1");
-      formData.append(
+      formData.append("required", data.require !== true ? "0" : "1");
+      formData.append("searched", data.search !== true ? "0" : "1");
+      (data.type === "radio" || data.type === "checkbox") && formData.append(
         "values[1]",
         //   data.values
+        // data.values.length === 0 ? [''] : newArray
         newArray
       );
       const res = await axiosPrivateTokenized.post(
@@ -51,7 +52,9 @@ const useAddFieldClassDepartment = () => {
         throw new Error(data1.error);
       }
       toast.success("Classified Department Added Succesfuly !");
+      navigate(`/classifieds/${classifiedId}/classifiedsdepartments/${departmentId}/field`);
     } catch (err) {
+      console.log(err);
       toast.error(err.message);
     } finally {
       setLoading(false);
@@ -67,8 +70,6 @@ function handleInputErrors({
   max,
   min,
   type,
-  required,
-  search,
 }) {
   if (!name || !placeholder || !max || !min || !type) {
     toast.error("Please fill all the field ! ");

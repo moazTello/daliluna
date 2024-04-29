@@ -1,9 +1,17 @@
-import React from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDataContext } from "../../../DataContext/DataContext";
-import useAddFieldClassDepartment from "../../../hooks/useAddFieldClassDepartment";
-const AddFieldClassDepartment = () => {
-  const { classifiedid, classifiedDepartmentId } = useParams();
+import useEditDepartmentField from "../../../hooks/useEditDepartmentField";
+const EditFieldClassDepartment = () => {
+    const navigate = useNavigate();
+    const { classifiedid, classifiedDepartmentId, fieldId } = useParams();
+    const { loadingEditingField, editDepartmentField, getEditDepartmentField } = useEditDepartmentField();
+  useEffect(() => {
+    const getEdit = async () => {
+        await getEditDepartmentField(classifiedDepartmentId, fieldId);
+      };
+      getEdit();
+  },[])
   const {
     fn,
     sfn,
@@ -25,26 +33,12 @@ const AddFieldClassDepartment = () => {
     handleRemoveValueRow,
     handleAddvalueRow,
   } = useDataContext();
-  const { loading, addFieldDepartment } = useAddFieldClassDepartment();
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(classifiedid);
     console.log(classifiedDepartmentId);
-    await addFieldDepartment(
-      {
-        name: fn,
-        placeholder: place,
-        min: fMi,
-        max: fMa,
-        type: filedType,
-        search: fs,
-        values: fv,
-        require: fReq,
-      },
-      classifiedid,
-      classifiedDepartmentId
-    );
-    // navigate(`/classifieds/${classifiedid}/classifiedsdepartments`);
+    console.log(fieldId);
+    await editDepartmentField( classifiedid,classifiedDepartmentId, fieldId);
   };
   const typelist = [
     {
@@ -152,14 +146,13 @@ const AddFieldClassDepartment = () => {
               placeholder=""
             />
           </div>
-
           {(filedType === "checkbox" || filedType === "radio") && (
             <button
               type="button"
               className="btn btn-success"
               onClick={() => handleAddvalueRow()}
             >
-              Add Value
+              ADD VALUE
             </button>
           )}
           {(filedType === "checkbox" || filedType === "radio") &&
@@ -183,7 +176,7 @@ const AddFieldClassDepartment = () => {
                     className="btn btn-warning"
                     onClick={() => handleRemoveValueRow(row, index)}
                   >
-                    Remove
+                    REMOVE
                   </button>
                 </div>
               </div>
@@ -191,13 +184,13 @@ const AddFieldClassDepartment = () => {
           <div>
             <button
               type="submit"
-              disabled={loading}
+              disabled={loadingEditingField}
               className="btn min-h-[55px] mt-5 mb-5 p-5 btn-block items-center justify-center"
             >
-              {loading ? (
+              {loadingEditingField ? (
                 <p className="loading loading-spinner bg-blue-600"></p>
               ) : (
-                "ADD FIELD"
+                "UPDATE FIELD"
               )}
             </button>
           </div>
@@ -206,4 +199,4 @@ const AddFieldClassDepartment = () => {
     </div>
   );
 };
-export default AddFieldClassDepartment;
+export default EditFieldClassDepartment;
