@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import useElement from '../../../hooks/useElements';
+import useElement from "../../../hooks/useElements";
 import useDataStore from "../../../zustand/useData";
 import Row from "../../../Components/Row";
 import TableDesy from "../../../Components/TableDesy";
@@ -26,18 +26,19 @@ const Elements = () => {
       {loading ? (
         <p className="loading loading-spinner bg-blue-600"></p>
       ) : (
-        <TableDesy field ='elements' icon="false">
-          {elements?.length > 0 && elements?.map((item, index) => (
-            <Row
-              key={index}
-              content={item}
-              hr1="/yellowpages/:yallowPageId/yellowpagesdepartments/:yellowPageDepartmentId/elements"
-              hr2="none"
-              hr3="EDIT_Elements"
-              fatherId={yellowPageDepartmentId}
-              grand={yallowPageId}
-            />
-          ))}
+        <TableDesy field="elements" icon="false">
+          {elements?.length > 0 &&
+            elements?.map((item, index) => (
+              <Row
+                key={index}
+                content={item}
+                hr1="/yellowpages/:yallowPageId/yellowpagesdepartments/:yellowPageDepartmentId/elements"
+                hr2="none"
+                hr3="EDIT_Elements"
+                fatherId={yellowPageDepartmentId}
+                grand={yallowPageId}
+              />
+            ))}
         </TableDesy>
       )}
     </div>

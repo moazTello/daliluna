@@ -38,7 +38,10 @@ function App() {
               path="/classifieds/:classifiedid/classifiedsdepartments/:classifiedDepartmentId"
               element={<EditClassifiedDepartment />}
             />
-          <Route path="/classifieds/:classifiedid/classifiedsdepartments/:classifiedDepartmentId/field" element={<FieldClassDepartment/>} /> 
+            <Route
+              path="/classifieds/:classifiedid/classifiedsdepartments/:classifiedDepartmentId/field"
+              element={<FieldClassDepartment />}
+            />
             <Route
               path="/classifieds/:classifiedid/classifiedsdepartments/:classifiedDepartmentId/addfield"
               element={<AddFieldClassDepartment />}
@@ -51,7 +54,6 @@ function App() {
               path="/classifieds/editclassified/:classifiedid"
               element={<EditClassified />}
             />
-
           </Route>
           <Route path="/yellowpages">
             <Route index element={<YellowPages />} />
