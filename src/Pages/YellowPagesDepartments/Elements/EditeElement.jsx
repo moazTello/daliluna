@@ -9,12 +9,13 @@ import Select from "react-select";
 import useAddElement from "../../../hooks/useAddElement";
 
 const AddElement = () => {
+
   const { loading, addYellowElement } = useAddElement();
   const { yallowPageId, yellowPageDepartmentId } = useParams();
   const { provinces, cities, countries } = useDataStore();
   console.log(yallowPageId, yellowPageDepartmentId);
   const { loadingCountries, getContries, getCities, getProvinces } =
-    useCountries();
+  useCountries();
   const {
     name,
     setName,
@@ -75,7 +76,7 @@ const AddElement = () => {
     await getCities(id.value);
     setProvince(id.label);
   };
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -90,7 +91,7 @@ const AddElement = () => {
     formData.append("youtube", you);
     formData.append("video", video);
     phones?.map((item, index) => {
-      formData.append(`phones[${index + 1}][name]`, "call");
+      formData.append(`phones[${index + 1}][name]`, 'call');
     });
     phones2?.map((item, index) => {
       formData.append(`phones[${index + 1}][number]`, item);
@@ -101,8 +102,8 @@ const AddElement = () => {
     formData.append("logo", image2);
     formData.append("images[1]", image);
     formData.append("website", website);
-    console.log(yellowPageDepartmentId);
-    await addYellowElement(formData, yallowPageId, yellowPageDepartmentId);
+    console.log(yellowPageDepartmentId)
+    await addYellowElement(formData,yallowPageId,yellowPageDepartmentId);
   };
   return (
     <div className="flex flex-col items-center justify-center w-11/12 mx-auto">
@@ -261,18 +262,18 @@ const AddElement = () => {
                 phones?.map((row, index) => (
                   <div key={index} className="">
                     <div className="">
-                      <Select
-                        required
-                        options={[
-                          { value: "call", label: "call" },
-                          { value: "whatsapp", label: "whatsapp" },
-                          { value: "telegram", label: "telegram" },
-                        ]}
-                        ref={phonesrefer}
-                        onChange={(value) =>
-                          handleValuesChangeElements(value.value, index, 1)
-                        }
-                      />
+                          <Select
+                            required
+                            options={[
+                              { value: "call", label: "call" },
+                              { value: "whatsapp", label: "whatsapp" },
+                              { value: "telegram", label: "telegram" },
+                            ]}
+                            ref={phonesrefer}
+                            onChange={(value) =>
+                              handleValuesChangeElements(value.value, index,1)
+                            }
+                          />
                     </div>
                   </div>
                 ))}
@@ -353,7 +354,7 @@ const AddElement = () => {
                   key: item.id,
                 }))}
                 onChange={(value) => {
-                  setCity({ value: value.label, id: value.value });
+                  setCity({value:value.label,id:value.value});
                 }}
               />
             </div>

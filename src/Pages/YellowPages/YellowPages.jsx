@@ -25,7 +25,7 @@ const YellowPages = () => {
       {loading ? (
         <p className="loading loading-spinner bg-blue-600"></p>
       ) : (
-        <TableDesy icon="false">
+        <TableDesy icon="true">
           {yellowPages?.map((item, index) => (
             <Row
               key={index}

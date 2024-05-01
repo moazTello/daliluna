@@ -9,12 +9,35 @@ const TableDesy = ({ children, icon, field }) => {
             <th>ID</th>
             <th>Name</th>
             {icon !== "false" && <th>Icon</th>}
-            {field === 'field' && <><td>placeholder</td>
-            <td>type</td>
-            <td>max</td>
-            <td>min</td>
-            <td>required</td>
-            <td>searched</td></>}
+            {field === "field" && (
+              <>
+                <td>PLACE_HOLDER</td>
+                <td>TYPE</td>
+                <td>MAX</td>
+                <td>MIN</td>
+                <td>REQUIREED</td>
+                <td>SEARCHED</td>
+              </>
+            )}
+            {field === "elements" && (
+              <>
+                <td>ADDRESS</td>
+                <td>APPROVED_ADMIN</td>
+                <td>CITY_ID</td>
+                <td>DESCRIPTION</td>
+                <td>FACEBOOK</td>
+                <td>INSTAGRAM</td>
+                <td>TWITTER</td>
+                <td>IMAGE</td>
+                <td>LOGO</td>
+                <td>NUMBER_OF_VISITORS</td>
+                <td>CALLING</td>
+                <td>PHONE_NUBMER</td>
+                <td>TIME_OPEN</td>
+                <td>WEB_SITE</td>
+                <td>YOUTUBE</td>
+              </>
+            )}
             <th>Action</th>
           </tr>
         </thead>
@@ -22,14 +45,37 @@ const TableDesy = ({ children, icon, field }) => {
         <tfoot>
           <tr>
             <th>ID</th>
-            <th>Name</th>
+            <th>NAME</th>
             {icon !== "false" && <th>Icon</th>}
-            {field === 'field' && <><td>placeholder</td>
-            <td>type</td>
-            <td>max</td>
-            <td>min</td>
-            <td>required</td>
-            <td>searched</td></>}
+            {field === "field" && (
+              <>
+                <td>PLACE_HOLDER</td>
+                <td>TYPE</td>
+                <td>MAX</td>
+                <td>MIN</td>
+                <td>REQUIREED</td>
+                <td>SEARCHED</td>
+              </>
+            )}
+            {field === "elements" && (
+              <>
+                <td>ADDRESS</td>
+                <td>APPROVED_ADMIN</td>
+                <td>CITY_ID</td>
+                <td>DESCRIPTION</td>
+                <td>FACEBOOK</td>
+                <td>INSTAGRAM</td>
+                <td>TWITTER</td>
+                <td>IMAGE</td>
+                <td>LOGO</td>
+                <td>NUMBER_OF_VISITORS</td>
+                <td>CALLING</td>
+                <td>PHONE_NUBMER</td>
+                <td>TIME_OPEN</td>
+                <td>WEB_SITE</td>
+                <td>YOUTUBE</td>
+              </>
+            )}
             <th>Action</th>
           </tr>
         </tfoot>

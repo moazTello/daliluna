@@ -6,14 +6,18 @@ import TableDesy from "../../../Components/TableDesy";
 import { Link, useParams } from "react-router-dom";
 const Elements = () => {
   const { yallowPageId, yellowPageDepartmentId } = useParams();
+  console.log(yallowPageId, yellowPageDepartmentId);
   const { loading, getElements } = useElement();
+
   const { elements } = useDataStore();
   useEffect(() => {
     const handleFields = async () => {
       await getElements(yellowPageDepartmentId);
     };
     handleFields();
+    console.log(elements);
   }, []);
+  console.log(elements);
   return (
     <div className="w-full bg-base-100 pt-10">
       <Link
@@ -27,7 +31,7 @@ const Elements = () => {
         <p className="loading loading-spinner bg-blue-600"></p>
       ) : (
         <TableDesy field="elements" icon="false">
-          {elements?.length > 0 &&
+          {elements.length &&
             elements?.map((item, index) => (
               <Row
                 key={index}

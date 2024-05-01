@@ -2,10 +2,10 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import axiosPrivateTokenized from "../api/DataTransfer";
 import useDataStore from "../zustand/useData";
-const useElements = () => {
+const usePostsClassDepartment = () => {
   const [loading, setLoading] = useState(false);
   const { setElements } = useDataStore();
-  const getElements = async (departmentId) => {
+  const getPostClassDepartment = async (departmentId) => {
     console.log(departmentId)
     try {
       setLoading(true);
@@ -38,6 +38,6 @@ const useElements = () => {
       setLoading(false);
     }
   };
-  return { loading, getElements };
+  return { loading, getPostClassDepartment };
 };
-export default useElements;
+export default usePostsClassDepartment;

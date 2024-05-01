@@ -7,6 +7,7 @@ import useDeleteYellowPages from "../hooks/useDeleteYellowPage";
 import useDeleteClassifiedDepartment from "../hooks/useDeleteClassifiedDepartment";
 import useDeleteYellowPageDepartment from "../hooks/useDeleteYellowPageDepartment";
 import useDeleteFieldClassDepartment from "../hooks/useDeleteFieldClassDepartment";
+import useDeleteElement from "../hooks/useDeleteElement";
 const Row = ({ content, hr1, hr2, hr3, trash, fatherId, grand }) => {
   const { deleteClassifieds, loading } = useDeleteClassifieds();
   const { deleteClassifiedDepartment, loadingDeleteDepartment } =
@@ -14,6 +15,7 @@ const Row = ({ content, hr1, hr2, hr3, trash, fatherId, grand }) => {
   const { loadingDeleteDepartmentField, deleteDepartmentField } =
     useDeleteFieldClassDepartment();
   const { deleteYellowpage, deleteYellowloading } = useDeleteYellowPages();
+  const { loadingDeleteElement, deleteElement } = useDeleteElement();
   const { loadingDeleteYellowPageDepartment, deleteYellowPageDepartment } =
     useDeleteYellowPageDepartment();
   const navigate = useNavigate();
@@ -27,8 +29,12 @@ const Row = ({ content, hr1, hr2, hr3, trash, fatherId, grand }) => {
     hr1 === "ELEMENTS" &&
       (await deleteYellowPageDepartment(fatherId, content.id));
     hr3 === "EDIT_FIELD" && (await deleteDepartmentField(fatherId, content.id));
+    hr1 ===
+      "/yellowpages/:yallowPageId/yellowpagesdepartments/:yellowPageDepartmentId/elements" &&
+      (await deleteElement(grand, fatherId, content.id));
   };
   const navigation1 = () => {
+    console.log(content);
     hr1 === "/classifieds/classifiedsdepartments"
       ? navigate(`/classifieds/${content.id}/classifiedsdepartments`)
       : hr1 === "/yellowpages/yellowpagesdepartments"
@@ -38,13 +44,12 @@ const Row = ({ content, hr1, hr2, hr3, trash, fatherId, grand }) => {
           `/classifieds/${fatherId}/classifiedsdepartments/${content.id}/addfield`
         )
       : "";
-    (hr1 ===
-      "/yellowpages/:yallowPageId/yellowpagesdepartments/:yellowPageDepartmentId/elements") ?
-      (
-        console.log("there"),
-      navigate(
-        `/yellowpages/${fatherId}/yellowpagesdepartments/${grand}/elements`
-      )):'';
+    hr1 === "ELEMENTS"
+      ? (console.log("there"),
+        navigate(
+          `/yellowpages/${fatherId}/yellowpagesdepartments/${content.id}/elements`
+        ))
+      : "";
   };
   const navigation2 = () => {
     hr1 === "/classifieds/classifiedsdepartments"
@@ -102,7 +107,46 @@ const Row = ({ content, hr1, hr2, hr3, trash, fatherId, grand }) => {
             <td>{content?.searched === "0" ? "T" : "X"}</td>
           </>
         )}
-        <th>
+        {(content?.facebook !== 0 && content?.twitter) && (
+          <>
+            <td>{content?.address}</td>
+            <td>{content?.approved_admin === "0" ? "T" : "X"}</td>
+            <td>{content?.city_id}</td>
+            <td>{content?.description}</td>
+            <td>{content?.facebook}</td>
+            <td>{content?.instagram}</td>
+            <td>{content?.twitter}</td>
+            {(content?.icon || content?.images) && (
+              <td>
+                <div className="flex justify-center">
+                  <div className="avatar">
+                    <div className="mask mask-squircle w-16 h-16">
+                      <img src={content?.icon || content?.images[0]} alt="icon" />
+                    </div>
+                  </div>
+                </div>
+              </td>
+            )}
+            {(content?.logo) && (
+              <td>
+                <div className="flex justify-center">
+                  <div className="avatar">
+                    <div className="mask mask-squircle w-16 h-16">
+                      <img src={content?.logo} alt="icon" />
+                    </div>
+                  </div>
+                </div>
+              </td>
+            )}
+            <td>{content?.number_of_visitors}</td>
+            <td>{content?.phones[1]?.name}</td>
+            <td>{content?.phones[1]?.number}</td>
+            <td>{content?.time_open}</td>
+            <td>{content?.website}</td>
+            <td>{content?.youtube}</td>
+          </>
+        )}
+        <th className="min-w-[150px]">
           <button
             onClick={deleteclass}
             className="relative mx-1 align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none 
@@ -115,12 +159,14 @@ const Row = ({ content, hr1, hr2, hr3, trash, fatherId, grand }) => {
                 !loadingDeleteDepartment &&
                 !deleteYellowloading &&
                 !loadingDeleteYellowPageDepartment &&
-                !loadingDeleteDepartmentField && <FaTrashAlt size={20} />}
+                !loadingDeleteDepartmentField &&
+                !loadingDeleteElement && <FaTrashAlt size={20} />}
               {(loading ||
                 loadingDeleteDepartment ||
                 deleteYellowloading ||
                 loadingDeleteYellowPageDepartment ||
-                loadingDeleteDepartmentField) && (
+                loadingDeleteDepartmentField ||
+                loadingDeleteElement) && (
                 <p className="loading loading-spinner bg-white"></p>
               )}
             </span>
@@ -138,23 +184,25 @@ const Row = ({ content, hr1, hr2, hr3, trash, fatherId, grand }) => {
               <CiEdit size={23} />
             </span>
           </button>
-          {hr1 !== "none" && (
-            <button
-              onClick={navigation1}
-              className="relative m-1  align-middle select-none font-sans font-medium text-center uppercase transition-all
+          {hr1 !== "none" &&
+            hr1 !==
+              "/yellowpages/:yallowPageId/yellowpagesdepartments/:yellowPageDepartmentId/elements" && (
+              <button
+                onClick={navigation1}
+                className="relative m-1  align-middle select-none font-sans font-medium text-center uppercase transition-all
              disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-[120px] max-w-[120px] 
              h-10 max-h-[40px] rounded-lg text-xs bg-blue-500 text-white shadow-md shadow-blue-500/20 hover:shadow-lg
               hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
-              type="button"
-            >
-              <span className="absolute w-full transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 text-xs">
-                {hr1 === "/classifieds/classifiedsdepartments" ||
-                hr1 === "/yellowpages/yellowpagesdepartments"
-                  ? "departments"
-                  : hr1}
-              </span>
-            </button>
-          )}
+                type="button"
+              >
+                <span className="absolute w-full transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 text-xs">
+                  {hr1 === "/classifieds/classifiedsdepartments" ||
+                  hr1 === "/yellowpages/yellowpagesdepartments"
+                    ? "departments"
+                    : hr1}
+                </span>
+              </button>
+            )}
           {hr2 !== "none" && (
             <button
               onClick={navigation3}
