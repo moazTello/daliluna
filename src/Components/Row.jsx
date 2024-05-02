@@ -7,9 +7,16 @@ import useDeleteYellowPages from "../hooks/useDeleteYellowPage";
 import useDeleteClassifiedDepartment from "../hooks/useDeleteClassifiedDepartment";
 import useDeleteYellowPageDepartment from "../hooks/useDeleteYellowPageDepartment";
 import useDeleteFieldClassDepartment from "../hooks/useDeleteFieldClassDepartment";
+import useChangePostStatuse from "../hooks/useChangeStatus";
 import useDeleteElement from "../hooks/useDeleteElement";
-const Row = ({ content, hr1, hr2, hr3, trash, fatherId, grand }) => {
+import useDeletePostClassDepartment from "../hooks/useDeletePost";
+import useDeleteService from "../hooks/useDeleteService";
+import { TbStatusChange } from "react-icons/tb";
+import useDeleteCurrencies from "../hooks/useDeleteCurrencies";
+
+const Row = ({ content, hr1, hr2, hr3, trash, fatherId, grand, hr4 }) => {
   const { deleteClassifieds, loading } = useDeleteClassifieds();
+  const { loadingDeleteCurrency, deleteCurrency } = useDeleteCurrencies();
   const { deleteClassifiedDepartment, loadingDeleteDepartment } =
     useDeleteClassifiedDepartment();
   const { loadingDeleteDepartmentField, deleteDepartmentField } =
@@ -18,11 +25,16 @@ const Row = ({ content, hr1, hr2, hr3, trash, fatherId, grand }) => {
   const { loadingDeleteElement, deleteElement } = useDeleteElement();
   const { loadingDeleteYellowPageDepartment, deleteYellowPageDepartment } =
     useDeleteYellowPageDepartment();
+  const { loadingDeleteDepartmentPostStatus, ChangePostStatus } =
+    useChangePostStatuse();
+  const { loadingDeleteDepartmentPost, deleteDepartmentPost } =
+    useDeletePostClassDepartment();
+  const { loadingDeleteService, deleteService } = useDeleteService();
   const navigate = useNavigate();
   const deleteclass = async () => {
     hr1 === "/classifieds/classifiedsdepartments" &&
       (await deleteClassifieds(content.id));
-    hr1 === "ADD POST" &&
+    hr1 === "SHOW POSTS" &&
       (await deleteClassifiedDepartment(fatherId, content.id));
     hr1 === "/yellowpages/yellowpagesdepartments" &&
       (await deleteYellowpage(content.id));
@@ -32,6 +44,9 @@ const Row = ({ content, hr1, hr2, hr3, trash, fatherId, grand }) => {
     hr1 ===
       "/yellowpages/:yallowPageId/yellowpagesdepartments/:yellowPageDepartmentId/elements" &&
       (await deleteElement(grand, fatherId, content.id));
+    hr4 === "hideEdit" && (await deleteDepartmentPost(fatherId, content.id));
+    hr4 === "services" && (await deleteService(content.id));
+    hr4 === "currencies" && (await deleteCurrency(content.id));
   };
   const navigation1 = () => {
     console.log(content);
@@ -39,23 +54,32 @@ const Row = ({ content, hr1, hr2, hr3, trash, fatherId, grand }) => {
       ? navigate(`/classifieds/${content.id}/classifiedsdepartments`)
       : hr1 === "/yellowpages/yellowpagesdepartments"
       ? navigate(`/yellowpages/${content.id}/yellowpagesdepartments`)
-      : hr1 === "ADD POST" && hr2 === "ADD FIELD"
-      ? navigate(
-          `/classifieds/${fatherId}/classifiedsdepartments/${content.id}/addfield`
-        )
-      : "";
+      : hr1 === "SHOW CITIES"?  navigate(`/Countries/${fatherId}/provencies/${content.id}/cities`):"";
+    //  hr1 === "SHOW POSTS" && hr2 === "ADD FIELDS"
+    // ? navigate(
+    //     `/classifieds/${fatherId}/classifiedsdepartments/${content.id}/addfield`
+    //   )
+    // : "";
     hr1 === "ELEMENTS"
       ? (console.log("there"),
         navigate(
           `/yellowpages/${fatherId}/yellowpagesdepartments/${content.id}/elements`
         ))
       : "";
+    hr1 === "SHOW POSTS" && hr2 === "SHOW FIELDS"
+      ? navigate(
+          `/classifieds/${fatherId}/classifiedsdepartments/${content.id}/posts`
+        )
+      : '';
+    hr1 === "SHOW PROVENCIES" && navigate(
+      `/Countries/provencies/${content.id}`
+    )
   };
-  const navigation2 = () => {
+  const navigation2 = async () => {
     hr1 === "/classifieds/classifiedsdepartments"
       ? navigate(`/classifieds/editclassified/${content.id}`)
       : "";
-    hr1 === "ADD POST"
+    hr1 === "SHOW POSTS"
       ? navigate(
           `/classifieds/${fatherId}/classifiedsdepartments/${content.id}`
         )
@@ -72,9 +96,19 @@ const Row = ({ content, hr1, hr2, hr3, trash, fatherId, grand }) => {
           `/classifieds/${grand}/classifiedsdepartments/${fatherId}/edit/${content.id}`
         )
       : "";
+    hr4 === "hideEdit" &&
+      (await ChangePostStatus(fatherId, content.id, content.status));
+    hr4 === "services" &&
+      navigate(`/yellowpages/yellowpagesServices/${content.id}`);
+    // trash === "removetrash" && navigate()
+    hr4 === "countries" && navigate(`/Countries/Edit/${content.id}`);
+    hr4 === "provencies" && navigate(`/Countries/provencies/${fatherId}/edit/${content.id}`);
+    hr4 === "cities" && navigate(`/Countries/${grand}/provencies/${fatherId}/edit/${content.id}`);
+
+    
   };
   const navigation3 = () => {
-    hr1 === "ADD POST" && hr2 === "SHOW FIELDS"
+    hr1 === "SHOW POSTS" && hr2 === "SHOW FIELDS"
       ? // navigate(`/classifieds/${fatherId}/classifiedsdepartments/${content.id}/addfield`): '';
         navigate(
           `/classifieds/${fatherId}/classifiedsdepartments/${content.id}/field`
@@ -85,7 +119,7 @@ const Row = ({ content, hr1, hr2, hr3, trash, fatherId, grand }) => {
     <tbody>
       <tr>
         <td>{content?.id}</td>
-        <td>{content?.name}</td>
+        <td>{content?.name || content?.title}</td>
         {(content?.icon || content?.image) && (
           <td>
             <div className="flex justify-center">
@@ -107,7 +141,7 @@ const Row = ({ content, hr1, hr2, hr3, trash, fatherId, grand }) => {
             <td>{content?.searched === "0" ? "T" : "X"}</td>
           </>
         )}
-        {(content?.facebook !== 0 && content?.twitter) && (
+        {content?.facebook !== 0 && content?.twitter && (
           <>
             <td>{content?.address}</td>
             <td>{content?.approved_admin === "0" ? "T" : "X"}</td>
@@ -121,13 +155,16 @@ const Row = ({ content, hr1, hr2, hr3, trash, fatherId, grand }) => {
                 <div className="flex justify-center">
                   <div className="avatar">
                     <div className="mask mask-squircle w-16 h-16">
-                      <img src={content?.icon || content?.images[0]} alt="icon" />
+                      <img
+                        src={content?.icon || content?.images[0]}
+                        alt="icon"
+                      />
                     </div>
                   </div>
                 </div>
               </td>
             )}
-            {(content?.logo) && (
+            {content?.logo && (
               <td>
                 <div className="flex justify-center">
                   <div className="avatar">
@@ -139,39 +176,78 @@ const Row = ({ content, hr1, hr2, hr3, trash, fatherId, grand }) => {
               </td>
             )}
             <td>{content?.number_of_visitors}</td>
-            <td>{content?.phones[1]?.name}</td>
-            <td>{content?.phones[1]?.number}</td>
+            <td>{content?.phones[0]?.name}</td>
+            <td>{content?.phones[0]?.number}</td>
             <td>{content?.time_open}</td>
             <td>{content?.website}</td>
             <td>{content?.youtube}</td>
           </>
         )}
+        {
+          content.title && content.status && (
+            <>
+              <td>{content?.address}</td>
+              <td>{content?.city_id}</td>
+              <td>{content?.currency.name}</td>
+              <td>{content?.price}</td>
+              <td>{content?.email}</td>
+              <td>{content?.facebook}</td>
+              <td>{content?.mobiles[0]?.name}</td>
+              <td>{content?.mobiles[0]?.number}</td>
+              <td>{content?.number_of_visitors}</td>
+              {/* <td>{content?.status}</td> */}
+            </>
+          )
+          // currency{id: 1, name: 'American dollar', code: 'USD $'}
+
+          // images
+          // (3) ['https://daliluna.ltd/storage/post-images/YXx4fNzBDaEbjhjR8ioBUCpiLpdkD6Js12t1lMwn.png', 'https://daliluna.ltd/storage/post-images/8YtHEn0f1bc2tKdszK0wIkMXPH0ODJjKrD0byl10.png', 'https://daliluna.ltd/storage/post-images/aWuVW5AHozon20CWgeS7BMQmcxiPOupkF5B9e9Rj.png']
+        }
+        {content.period_name && content.period_value && (
+          <>
+            <td>{content?.price}</td>
+            <td>{content?.period_name}</td>
+            <td>{content?.period_value}</td>
+          </>
+        )}
+        {content.code && (
+          <>
+            <td>{content?.code}</td>
+          </>
+        )}
         <th className="min-w-[150px]">
-          <button
-            onClick={deleteclass}
-            className="relative mx-1 align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none 
+          {trash !== "removetrash" && (
+            <button
+              onClick={deleteclass}
+              className="relative mx-1 align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none 
             disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs bg-red-500 text-white shadow-md shadow-red-500/20 hover:shadow-lg
              hover:shadow-red-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
-            type="button"
-          >
-            <span className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-              {!loading &&
-                !loadingDeleteDepartment &&
-                !deleteYellowloading &&
-                !loadingDeleteYellowPageDepartment &&
-                !loadingDeleteDepartmentField &&
-                !loadingDeleteElement && <FaTrashAlt size={20} />}
-              {(loading ||
-                loadingDeleteDepartment ||
-                deleteYellowloading ||
-                loadingDeleteYellowPageDepartment ||
-                loadingDeleteDepartmentField ||
-                loadingDeleteElement) && (
-                <p className="loading loading-spinner bg-white"></p>
-              )}
-            </span>
-          </button>
-
+              type="button"
+            >
+              <span className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+                {!loading &&
+                  !loadingDeleteDepartment &&
+                  !deleteYellowloading &&
+                  !loadingDeleteYellowPageDepartment &&
+                  !loadingDeleteDepartmentField &&
+                  !loadingDeleteElement &&
+                  !loadingDeleteDepartmentPost &&
+                  !loadingDeleteService &&
+                  !loadingDeleteCurrency && <FaTrashAlt size={20} />}
+                {(loading ||
+                  loadingDeleteDepartment ||
+                  deleteYellowloading ||
+                  loadingDeleteYellowPageDepartment ||
+                  loadingDeleteDepartmentField ||
+                  loadingDeleteElement ||
+                  loadingDeleteDepartmentPost ||
+                  loadingDeleteService ||
+                  loadingDeleteCurrency) && (
+                  <p className="loading loading-spinner bg-white"></p>
+                )}
+              </span>
+            </button>
+          )}
           <button
             onClick={navigation2}
             className="relative mx-1 align-middle select-none font-sans font-medium text-center uppercase transition-all 
@@ -179,9 +255,20 @@ const Row = ({ content, hr1, hr2, hr3, trash, fatherId, grand }) => {
             text-xs bg-green-500 text-white shadow-md shadow-green-500/20 hover:shadow-lg hover:shadow-green-500/40 
             focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
             type="button"
+            style={{
+              backgroundColor: content.status === "disable" ? "gray" : "",
+            }}
           >
             <span className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-              <CiEdit size={23} />
+              {hr4 !== "hideEdit" ? (
+                <CiEdit size={23} />
+              ) : loadingDeleteDepartmentPostStatus ? (
+                <p className="loading loading-spinner bg-white"></p>
+              ) : content.status === "disable" ? (
+                <TbStatusChange size={23} />
+              ) : (
+                <TbStatusChange size={23} />
+              )}
             </span>
           </button>
           {hr1 !== "none" &&

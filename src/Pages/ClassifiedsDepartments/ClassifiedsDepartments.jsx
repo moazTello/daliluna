@@ -31,7 +31,7 @@ const ClassifiedsDepartments = () => {
             <Row
               key={index}
               content={item}
-              hr1="ADD POST"
+              hr1="SHOW POSTS"
               hr2="SHOW FIELDS"
               hr3="none"
               fatherId={departmentId}

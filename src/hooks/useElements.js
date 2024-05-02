@@ -6,12 +6,11 @@ const useElements = () => {
   const [loading, setLoading] = useState(false);
   const { setElements } = useDataStore();
   const getElements = async (departmentId) => {
-    console.log(departmentId)
+    console.log(departmentId);
     try {
       setLoading(true);
 
       const res = await axiosPrivateTokenized.get(
-        // `dashboard/yellow-page-departments/${departmentId}/elements`,
         `dashboard/yellow-page-departments/${departmentId}/elements`,
         {
           headers: {
@@ -25,7 +24,6 @@ const useElements = () => {
       );
       const data = res.data.data;
       console.log(res);
-
       console.log(data);
       if (data.error) {
         throw new Error(data.error);

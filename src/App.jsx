@@ -22,6 +22,24 @@ import FieldClassDepartment from "./Pages/ClassifiedsDepartments/Fields/FieldCla
 import EditFieldClassDepartment from "./Pages/ClassifiedsDepartments/Fields/EditFieldClassDepartment";
 import Elements from "./Pages/YellowPagesDepartments/Elements/Elements";
 import AddElement from "./Pages/YellowPagesDepartments/Elements/AddElement";
+import Posts from "./Pages/ClassifiedsDepartments/Posts";
+import YellowPagesServices from "./Pages/YellowPages/YellowPagesServices";
+import EditYellowPageServices from "./Pages/YellowPages/YellowPagesServices/:id";
+import Countries from "./Pages/Countries/Countries";
+import AddCountry from "./Pages/Countries/AddCountry";
+import AddServices from "./Pages/YellowPages/YellowPagesServices/new";
+import Currencies from "./Pages/Currencies";
+import AddCurrency from "./Pages/Currencies/new";
+import EditCountries from "./Pages/Countries/EditCountries";
+import Provencies from "./Pages/Countries/Provencies";
+import EditProvency from "./Pages/Countries/Provencies/:id";
+import AddProvency from "./Pages/Countries/Provencies/new";
+import Cities from "./Pages/Countries/Provencies/City";
+import AddCity from "./Pages/Countries/Provencies/City/new";
+import EditCity from "./Pages/Countries/Provencies/City/:id";
+import Languages from "./Pages/Languages";
+import AddLanguage from "./Pages/Languages/new";
+import Blog from "./Pages/Blog";
 function App() {
   return (
     <>
@@ -43,6 +61,10 @@ function App() {
               element={<FieldClassDepartment />}
             />
             <Route
+              path="/classifieds/:classifiedid/classifiedsdepartments/:classifiedDepartmentId/posts"
+              element={<Posts />}
+            />
+            <Route
               path="/classifieds/:classifiedid/classifiedsdepartments/:classifiedDepartmentId/addfield"
               element={<AddFieldClassDepartment />}
             />
@@ -57,6 +79,18 @@ function App() {
           </Route>
           <Route path="/yellowpages">
             <Route index element={<YellowPages />} />
+            <Route
+              path="/yellowpages/yellowpagesServices"
+              element={<YellowPagesServices />}
+            />
+            <Route
+              path="/yellowpages/yellowpagesServices/:serviceId"
+              element={<EditYellowPageServices />}
+            />
+            <Route
+              path="/yellowpages/yellowpagesServices/addservices"
+              element={<AddServices/>}
+            />
             <Route
               path="/yellowpages/:yellowpageId/yellowpagesdepartments"
               element={<YellowPagesDepartments />}
@@ -77,6 +111,66 @@ function App() {
               path="/yellowpages/:yallowPageId/yellowpagesdepartments/:yellowPageDepartmentId/addelement"
               element={<AddElement />}
             />
+          </Route>
+          <Route path="/Countries">
+            <Route index element={<Countries />} />
+            <Route
+              path="/Countries/addcountry"
+              element={<AddCountry />}
+            />
+            <Route
+              path="/Countries/Edit/:countryId"
+              element={<EditCountries />}
+            />
+            <Route
+              path="/Countries/provencies/:countryId"
+              element={<Provencies />}
+            />
+            <Route
+              path="/Countries/provencies/:countryId/edit/:provencyId"
+              element={<EditProvency />}
+            />
+            <Route
+              path="/Countries/provencies/:countryId/addProvency"
+              element={<AddProvency />}
+            />
+             <Route
+              path="/Countries/:countryId/provencies/:provencyId/cities"
+              element={<Cities/>}
+            />
+            <Route
+              path="/Countries/:countryId/provencies/:provencyId/addcity"
+              element={<AddCity/>}
+            />
+            <Route
+              path="/Countries/:countryId/provencies/:provencyId/edit/:cityId"
+              element={<EditCity />}
+            />
+          </Route>
+          <Route path="/lang">
+            <Route index element={<Languages />} />
+            <Route
+              path="/lang/addlang"
+              element={<AddLanguage />}
+            />
+          </Route>
+          <Route path="/blogs">
+            <Route index element={<Blog/>} />
+            <Route
+              path="/blogs/addblog"
+              element={<AddLanguage />}
+            />
+          </Route>
+          <Route path="/currencies">
+            <Route index element={<Currencies />} />
+            <Route
+              path="/currencies/addcurrency"
+              element={<AddCurrency />}
+            />
+            {/* <Route
+              path="/currencies/Edit/:countryId"
+              element={<AddCountry />}
+            /> */}
           </Route>
           <Route
             path="/addclassifieddepartment/:classifiedId"

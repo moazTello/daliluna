@@ -4,15 +4,14 @@ import axiosPrivateTokenized from "../api/DataTransfer";
 import useDataStore from "../zustand/useData";
 const usePostsClassDepartment = () => {
   const [loading, setLoading] = useState(false);
-  const { setElements } = useDataStore();
-  const getPostClassDepartment = async (departmentId) => {
-    console.log(departmentId)
+  const { setPosts } = useDataStore();
+  const getPostsClassDepartment = async (departmentId) => {
+    console.log(departmentId);
+    // const {departmentId} = useParams();
     try {
       setLoading(true);
-
       const res = await axiosPrivateTokenized.get(
-        // `dashboard/yellow-page-departments/${departmentId}/elements`,
-        `dashboard/yellow-page-departments/${departmentId}/elements`,
+        `dashboard/classified-departments/${departmentId}/posts`,
         {
           headers: {
             Accept: "application/json",
@@ -25,19 +24,18 @@ const usePostsClassDepartment = () => {
       );
       const data = res.data.data;
       console.log(res);
-
       console.log(data);
       if (data.error) {
         throw new Error(data.error);
       }
-      setElements(data);
+      setPosts(data);
+
     } catch (err) {
-      console.log(err);
       toast.error(err.message);
     } finally {
       setLoading(false);
     }
   };
-  return { loading, getPostClassDepartment };
+  return { loading, getPostsClassDepartment };
 };
 export default usePostsClassDepartment;

@@ -16,12 +16,9 @@ export const DataProvider = ({ children }) => {
   const [fs, sfs] = useState(false);
   const [fv, sfv] = useState([]);
   const fval = useRef();
-
   // =========================================================== emelent
-
   const phonesrefer = useRef();
   const phonesrefer2 = useRef();
-
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [address, setAddress] = useState("");
@@ -69,7 +66,6 @@ export const DataProvider = ({ children }) => {
     setPhones(new2L);
     setPhones2(new2L2);
   };
-
 
   const handleImage = (e, id) => {
     id === 1 && setImage(e.target.files[0]);

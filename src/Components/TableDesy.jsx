@@ -38,6 +38,37 @@ const TableDesy = ({ children, icon, field }) => {
                 <td>YOUTUBE</td>
               </>
             )}
+            {
+              field === "posts" && (
+                <>
+                <td>ADDRESS</td>
+                <td>CITY_ID</td>
+                <td>CURRENCY</td>
+                <td>PRICE</td>
+                <td>EMAIL</td>
+                <td>FACEBOOK</td>
+                <td>CALL</td>
+                <td>NUMBER</td>
+                <td>NUMBER_OF_VISITORS</td>
+                </>
+              )
+            }
+            {
+              field === "period_name" && (
+                <>
+                <td>PRICE</td>
+                <td>PERIOD_NAME</td>
+                <td>PERIOD_VALUE</td>
+                </>
+              )
+            }
+             {
+              field === "code" && (
+                <>
+                <td>CODE</td>
+                </>
+              )
+            }
             <th>Action</th>
           </tr>
         </thead>
@@ -76,6 +107,30 @@ const TableDesy = ({ children, icon, field }) => {
                 <td>YOUTUBE</td>
               </>
             )}
+            {
+              field === "posts" && (
+                <>
+                <td>ADDRESS</td>
+                <td>CITY_ID</td>
+                <td>CURRENCY</td>
+                <td>PRICE</td>
+                <td>EMAIL</td>
+                <td>FACEBOOK</td>
+                <td>CALL</td>
+                <td>NUMBER</td>
+                <td>NUMBER_OF_VISITORS</td>
+                </>
+              )
+            }
+            {
+              field === "period_name" && (
+                <>
+                <td>PRICE</td>
+                <td>PERIOD_NAME</td>
+                <td>PERIOD_VALUE</td>
+                </>
+              )
+            }
             <th>Action</th>
           </tr>
         </tfoot>

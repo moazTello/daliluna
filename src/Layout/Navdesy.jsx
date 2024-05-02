@@ -39,6 +39,54 @@ const Navdesy = () => {
                         YellowPages
                       </Link>
                     </li>
+                    <li>
+                      <Link
+                        to="/yellowpages/yellowpagesServices"
+                        className=""
+                        // onClick={() => {
+                          // handleClick();
+                          // setWhere("Resources");
+                        // }}
+                      >
+                        Services
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/Countries"
+                        className=""
+                        // onClick={() => {
+                          // handleClick();
+                          // setWhere("Resources");
+                        // }}
+                      >
+                        Countries
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/currencies"
+                        className=""
+                        // onClick={() => {
+                          // handleClick();
+                          // setWhere("Resources");
+                        // }}
+                      >
+                        Currencies
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/blogs"
+                        className=""
+                        // onClick={() => {
+                          // handleClick();
+                          // setWhere("Resources");
+                        // }}
+                      >
+                        Blogs
+                      </Link>
+                    </li>
                   </ul>
                 </details>
               </li>

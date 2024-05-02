@@ -34,7 +34,16 @@ const useDataStore = create((set) => ({
       required:null,
       searched:null,
       values:[]
-  })
+  }),
+  yellowPagesServices:[],
+  setYellowPagesServices: (yellowPagesServices) => set({ yellowPagesServices }),
+  currencies:[],
+  setCurrencies: (currencies) => set({ currencies }),
+  lang:[],
+  setLang: (lang) => set({ lang }),
+  blogs:[],
+  setBlogs: (blogs) => set({ blogs }),
+
   // {
   //   name:null,
   //   placeholder:null,
