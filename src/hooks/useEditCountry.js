@@ -33,7 +33,6 @@ const useEditCountry = () => {
       if (data1.error) {
         throw new Error(data1.error);
       }
-      console.log(data1)
       toast.success("Classified Department Edited Succesfuly !");
       navigate('/Countries')
     } catch (err) {

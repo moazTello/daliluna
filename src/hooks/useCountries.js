@@ -21,12 +21,10 @@ const useCountries = () => {
         }
       );
       const data = res.data.data;
-      console.log(data);
       if (data.error) {
         throw new Error(data.error);
       }
       setCountries(data);
-      console.log(data);
     } catch (err) {
       toast.error(err.message);
     } finally {
@@ -53,7 +51,6 @@ const useCountries = () => {
         throw new Error(data.error);
       }
       setProvinces(data);
-      console.log(data);
     } catch (err) {
       toast.error(err.message);
     } finally {
@@ -76,12 +73,10 @@ const useCountries = () => {
         }
       );
       const data = res.data.data;
-      console.log(data);
       if (data.error) {
         throw new Error(data.error);
       }
       setCities(data);
-      console.log(data);
     } catch (err) {
       toast.error(err.message);
     } finally {

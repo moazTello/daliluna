@@ -9,17 +9,19 @@ const useAddBlog = () => {
     const success = handleInputErrors({
       name: data.name,
       icon: data.icon,
-      description: data.description,
+      details: data.details,
+      country_id: data.country_id,
     });
     if (!success) return;
     try {
       setLoading(true);
       const formData = new FormData();
       formData.append("image", data.icon);
-      formData.append("name", data.name);
-      formData.append("description", data.description);
+      formData.append("title", data.name);
+      formData.append("details", data.details);
+      formData.append("country_id", data.country_id.value);
       const res = await axiosPrivateTokenized.post(
-        "/dashboard/yellow-pages",
+        "/dashboard/blog",
         formData,
         {
           headers: {
@@ -36,8 +38,8 @@ const useAddBlog = () => {
       if (data1.error) {
         throw new Error(data1.error);
       }
-      navigate("/yellowpages");
-      toast.success("Yellow Page Added Succesfuly !");
+      navigate("/blogs");
+      toast.success("Blog Added Succesfuly !");
     } catch (err) {
       toast.error(err.message);
     } finally {
@@ -47,9 +49,9 @@ const useAddBlog = () => {
   return { loading, addBlog };
 };
 export default useAddBlog;
-function handleInputErrors({ name, icon, description }) {
-  if (!name || !description) {
-    toast.error('Please fill all the field ! ');
+function handleInputErrors({ name, icon, details, country_id }) {
+  if (!name || !details || !country_id) {
+    toast.error("Please fill all the field ! ");
     return false;
   }
   if (icon.name === 0) {

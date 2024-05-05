@@ -35,7 +35,6 @@ const useEditElement = () => {
   ) => {
     try {
       setLoading(true);
-      console.log(yellowPageDepartmentId);
       const res = await axiosPrivateTokenized.post(
         `/dashboard/yellow-page-departments/${yellowPageDepartmentId}/elements/2`,
         formData,
@@ -54,9 +53,6 @@ const useEditElement = () => {
       if (data1.error) {
         throw new Error(data1.error);
       }
-      console.log(res);
-      console.log(data1);
-
       toast.success("Element has Added Succesfuly !");
       navigate(
         `/yellowpages/${yallowPageId}/yellowpagesdepartments/${yellowPageDepartmentId}/elements`
@@ -70,7 +66,6 @@ const useEditElement = () => {
   };
 
   const getEditedElement = async (departmentId, elementId) => {
-    console.log(departmentId, elementId);
     try {
       setLoading(true);
       const res = await axiosPrivateTokenized.get(
@@ -86,7 +81,6 @@ const useEditElement = () => {
         }
       );
       const data = res.data.data;
-      console.log(data);
       if (data.error) {
         throw new Error(data.error);
       }

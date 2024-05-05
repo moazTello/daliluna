@@ -2,10 +2,10 @@ import React from "react";
 import { FaTrashAlt } from "react-icons/fa";
 import { CiEdit } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
-import useDeleteClassifieds from "../hooks/useDeleteClassified";
-import useDeleteYellowPages from "../hooks/useDeleteYellowPage";
+import useDeleteClassifieds from "../hooks/Classifieds/useDeleteClassified";
+import useDeleteYellowPages from "../hooks/YellowPages/useDeleteYellowPage";
 import useDeleteClassifiedDepartment from "../hooks/useDeleteClassifiedDepartment";
-import useDeleteYellowPageDepartment from "../hooks/useDeleteYellowPageDepartment";
+import useDeleteYellowPageDepartment from "../hooks/YellowDepartments/useDeleteYellowPageDepartment";
 import useDeleteFieldClassDepartment from "../hooks/useDeleteFieldClassDepartment";
 import useChangePostStatuse from "../hooks/useChangeStatus";
 import useDeleteElement from "../hooks/useDeleteElement";
@@ -13,9 +13,11 @@ import useDeletePostClassDepartment from "../hooks/useDeletePost";
 import useDeleteService from "../hooks/useDeleteService";
 import { TbStatusChange } from "react-icons/tb";
 import useDeleteCurrencies from "../hooks/useDeleteCurrencies";
-
+import useDeleteBlog from "../hooks/useDeleteBlog";
+import { LuPhoneCall } from "react-icons/lu";
 const Row = ({ content, hr1, hr2, hr3, trash, fatherId, grand, hr4 }) => {
   const { deleteClassifieds, loading } = useDeleteClassifieds();
+  const { loadingDeleteBlog, deleteBlog } = useDeleteBlog();
   const { loadingDeleteCurrency, deleteCurrency } = useDeleteCurrencies();
   const { deleteClassifiedDepartment, loadingDeleteDepartment } =
     useDeleteClassifiedDepartment();
@@ -47,21 +49,23 @@ const Row = ({ content, hr1, hr2, hr3, trash, fatherId, grand, hr4 }) => {
     hr4 === "hideEdit" && (await deleteDepartmentPost(fatherId, content.id));
     hr4 === "services" && (await deleteService(content.id));
     hr4 === "currencies" && (await deleteCurrency(content.id));
+    hr4 === "EDIT BLOG" && (await deleteBlog(content.id));
   };
   const navigation1 = () => {
-    console.log(content);
     hr1 === "/classifieds/classifiedsdepartments"
       ? navigate(`/classifieds/${content.id}/classifiedsdepartments`)
       : hr1 === "/yellowpages/yellowpagesdepartments"
       ? navigate(`/yellowpages/${content.id}/yellowpagesdepartments`)
-      : hr1 === "SHOW CITIES"?  navigate(`/Countries/${fatherId}/provencies/${content.id}/cities`):"";
+      : hr1 === "SHOW CITIES"
+      ? navigate(`/Countries/${fatherId}/provencies/${content.id}/cities`)
+      : "";
     //  hr1 === "SHOW POSTS" && hr2 === "ADD FIELDS"
     // ? navigate(
     //     `/classifieds/${fatherId}/classifiedsdepartments/${content.id}/addfield`
     //   )
     // : "";
     hr1 === "ELEMENTS"
-      ? (console.log("there"),
+      ? (
         navigate(
           `/yellowpages/${fatherId}/yellowpagesdepartments/${content.id}/elements`
         ))
@@ -70,10 +74,9 @@ const Row = ({ content, hr1, hr2, hr3, trash, fatherId, grand, hr4 }) => {
       ? navigate(
           `/classifieds/${fatherId}/classifiedsdepartments/${content.id}/posts`
         )
-      : '';
-    hr1 === "SHOW PROVENCIES" && navigate(
-      `/Countries/provencies/${content.id}`
-    )
+      : "";
+    hr1 === "SHOW PROVENCIES" &&
+      navigate(`/Countries/provencies/${content.id}`);
   };
   const navigation2 = async () => {
     hr1 === "/classifieds/classifiedsdepartments"
@@ -102,10 +105,11 @@ const Row = ({ content, hr1, hr2, hr3, trash, fatherId, grand, hr4 }) => {
       navigate(`/yellowpages/yellowpagesServices/${content.id}`);
     // trash === "removetrash" && navigate()
     hr4 === "countries" && navigate(`/Countries/Edit/${content.id}`);
-    hr4 === "provencies" && navigate(`/Countries/provencies/${fatherId}/edit/${content.id}`);
-    hr4 === "cities" && navigate(`/Countries/${grand}/provencies/${fatherId}/edit/${content.id}`);
-
-    
+    hr4 === "provencies" &&
+      navigate(`/Countries/provencies/${fatherId}/edit/${content.id}`);
+    hr4 === "cities" &&
+      navigate(`/Countries/${grand}/provencies/${fatherId}/edit/${content.id}`);
+    hr4 === "EDIT BLOG" && navigate(`/blogs/editblog/${content.id}`);
   };
   const navigation3 = () => {
     hr1 === "SHOW POSTS" && hr2 === "SHOW FIELDS"
@@ -137,8 +141,8 @@ const Row = ({ content, hr1, hr2, hr3, trash, fatherId, grand, hr4 }) => {
             <td>{content?.type}</td>
             <td>{content?.max}</td>
             <td>{content?.min}</td>
-            <td>{content?.required === "0" ? "T" : "X"}</td>
-            <td>{content?.searched === "0" ? "T" : "X"}</td>
+            <td>{content?.required === "0" ? "X" : "T"}</td>
+            <td>{content?.searched === "0" ? "X" : "T"}</td>
           </>
         )}
         {content?.facebook !== 0 && content?.twitter && (
@@ -152,15 +156,38 @@ const Row = ({ content, hr1, hr2, hr3, trash, fatherId, grand, hr4 }) => {
             <td>{content?.twitter}</td>
             {(content?.icon || content?.images) && (
               <td>
-                <div className="flex justify-center">
-                  <div className="avatar">
-                    <div className="mask mask-squircle w-16 h-16">
-                      <img
-                        src={content?.icon || content?.images[0]}
-                        alt="icon"
-                      />
-                    </div>
-                  </div>
+                <div className="flex-none">
+                  <ul className="menu menu-horizontal px-1">
+                    <li>
+                      <details>
+                        <summary>
+                          <div className="flex justify-center">
+                            <div className="avatar">
+                              <div className="mask mask-squircle w-16 h-16">
+                                <img src={content?.images[0]} alt="icon" />
+                              </div>
+                            </div>
+                          </div>
+                        </summary>
+                        <ul className="menu menu-vertical p-2 bg-t-100 rounded-t-none z-10">
+                          {content?.images &&
+                            Object.values(content.images).map(
+                              (image, index) => (
+                                <li key={index}>
+                                  <div className="flex justify-center">
+                                    <div className="avatar">
+                                      <div className="mask mask-squircle w-16 h-16">
+                                        <img src={image} alt="icon" />
+                                      </div>
+                                    </div>
+                                  </div>
+                                </li>
+                              )
+                            )}
+                        </ul>
+                      </details>
+                    </li>
+                  </ul>
                 </div>
               </td>
             )}
@@ -176,8 +203,32 @@ const Row = ({ content, hr1, hr2, hr3, trash, fatherId, grand, hr4 }) => {
               </td>
             )}
             <td>{content?.number_of_visitors}</td>
-            <td>{content?.phones[0]?.name}</td>
-            <td>{content?.phones[0]?.number}</td>
+            <td>
+              <div className="flex-none">
+                <ul className="menu menu-horizontal px-1">
+                  <li>
+                    <details>
+                      <summary>
+                        <LuPhoneCall size={18} />
+                      </summary>
+                      <ul className="p-2 bg-t-100 rounded-t-none">
+                        {content?.phones &&
+                          Object.values(content.phones).map((phone, index) => (
+                            <li key={index}>
+                              <p
+                                className="btn mt-1 z-10"
+                                style={{ borderColor: "rgb(8,178,253)" }}
+                              >
+                                {phone.name} || {phone.number}
+                              </p>
+                            </li>
+                          ))}
+                      </ul>
+                    </details>
+                  </li>
+                </ul>
+              </div>
+            </td>
             <td>{content?.time_open}</td>
             <td>{content?.website}</td>
             <td>{content?.youtube}</td>
@@ -233,7 +284,8 @@ const Row = ({ content, hr1, hr2, hr3, trash, fatherId, grand, hr4 }) => {
                   !loadingDeleteElement &&
                   !loadingDeleteDepartmentPost &&
                   !loadingDeleteService &&
-                  !loadingDeleteCurrency && <FaTrashAlt size={20} />}
+                  !loadingDeleteCurrency &&
+                  !loadingDeleteBlog && <FaTrashAlt size={20} />}
                 {(loading ||
                   loadingDeleteDepartment ||
                   deleteYellowloading ||
@@ -242,7 +294,8 @@ const Row = ({ content, hr1, hr2, hr3, trash, fatherId, grand, hr4 }) => {
                   loadingDeleteElement ||
                   loadingDeleteDepartmentPost ||
                   loadingDeleteService ||
-                  loadingDeleteCurrency) && (
+                  loadingDeleteCurrency ||
+                  loadingDeleteBlog) && (
                   <p className="loading loading-spinner bg-white"></p>
                 )}
               </span>

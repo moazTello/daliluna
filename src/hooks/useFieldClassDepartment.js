@@ -21,7 +21,6 @@ const useFieldClassDepartment = () => {
         }
       );
       const data = res.data.data;
-      console.log(data);
       if (data.error) {
         throw new Error(data.error);
       }

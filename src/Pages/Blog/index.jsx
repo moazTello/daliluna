@@ -17,7 +17,7 @@ const Blog = () => {
     <div className="w-full bg-base-100 pt-10">
       <Link
         className="btn btn-primery bg-blue-500 text-white"
-        to="/"
+        to="/blogs/addblog"
       >
         ADD NEW BLOG
       </Link>
@@ -33,7 +33,9 @@ const Blog = () => {
               hr1="none"
               hr2="none"
               hr3="none"
+              hr4="EDIT BLOG"
               trash="none"
+
             />
           ))}
         </TableDesy>

@@ -6,8 +6,6 @@ const usePostsClassDepartment = () => {
   const [loading, setLoading] = useState(false);
   const { setPosts } = useDataStore();
   const getPostsClassDepartment = async (departmentId) => {
-    console.log(departmentId);
-    // const {departmentId} = useParams();
     try {
       setLoading(true);
       const res = await axiosPrivateTokenized.get(
@@ -23,8 +21,6 @@ const usePostsClassDepartment = () => {
         }
       );
       const data = res.data.data;
-      console.log(res);
-      console.log(data);
       if (data.error) {
         throw new Error(data.error);
       }

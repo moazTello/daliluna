@@ -6,7 +6,6 @@ const useAddFieldClassDepartment = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const addFieldDepartment = async (data, classifiedId, departmentId) => {
-    console.log(data);
     const success = handleInputErrors({
       name: data.name,
       placeholder: data.placeholder,
@@ -54,7 +53,6 @@ const useAddFieldClassDepartment = () => {
       toast.success("Classified Department Added Succesfuly !");
       navigate(`/classifieds/${classifiedId}/classifiedsdepartments/${departmentId}/field`);
     } catch (err) {
-      console.log(err);
       toast.error(err.message);
     } finally {
       setLoading(false);

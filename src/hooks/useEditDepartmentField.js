@@ -42,42 +42,20 @@ const useEditDepartmentField = () => {
       setLoading(true);
       const newArray = eval(fv);
       const formData = new FormData();
-    //   formData.append("name", fn);
-    //   formData.append("placeholder", place);
-    //   formData.append("min", fMi);
-    //   formData.append("max", fMa);
-    //   formData.append("type", filedType);
-    //   formData.append("required", fReq === 0 ? "0" : "1");
-    //   formData.append("searched", fs === 0 ? "0" : "1");
-    //   formData.append(
-    //     "values[1]",
-    //     //   data.values
-    //     newArray
-    //   );
-    formData.append("name", " test f name");
-    formData.append("placeholder", "place");
-    formData.append("min", 5);
-    formData.append("max", 10);
-    formData.append("type", "number");
-    formData.append("required", 0 === 0 ? "0" : "1");
-    formData.append("searched", 1 === 0 ? "0" : "1");
-    formData.append(
-      "values[1]",
-      //   data.values
-      newArray
-    );
-    
-    //   console.log(fn, place, fMi, fMa, filedType, fReq, fs );
-    console.log(formData.values);
-
-      //   formData.append("_method", "PUT");
+      formData.append("name", " test f name");
+      formData.append("placeholder", "place");
+      formData.append("min", 5);
+      formData.append("max", 10);
+      formData.append("type", "number");
+      formData.append("required", 0 === 0 ? "0" : "1");
+      formData.append("searched", 1 === 0 ? "0" : "1");
+      formData.append("values[1]", newArray);
       const res = await axiosPrivateTokenized.put(
         `/dashboard/classified-departments/${classifiedDepartmentId}/classified-department-fields/${fieldId}`,
         formData,
         {
           headers: {
-            "Content-Type":
-              "application/json",
+            "Content-Type": "application/json",
             Accept: "application/json",
             "Accept-Language": "ar",
             country: "SYr",
@@ -86,7 +64,6 @@ const useEditDepartmentField = () => {
         }
       );
       const data1 = res.data.data;
-      console.log(data1);
       if (data1.error) {
         throw new Error(data1.error);
       }

@@ -21,12 +21,10 @@ const useLang = () => {
         }
       );
       const data = res.data.data;
-      console.log(data);
       if (data.error) {
         throw new Error(data.error);
       }
       setLang(data);
-      console.log(data);
     } catch (err) {
       toast.error(err.message);
     } finally {

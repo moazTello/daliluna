@@ -32,16 +32,14 @@ export const DataProvider = ({ children }) => {
   const [country, setCountry] = useState("");
   const [province, setProvince] = useState("");
   const [city, setCity] = useState("");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState([]);
   const [video, setVideo] = useState("");
   const [image2, setImage2] = useState("");
   const [phones, setPhones] = useState([]);
   const [phones2, setPhones2] = useState([]);
-
   const handleAddvalueRowElemenets = () => {
-    const empty = phones.every((v) => v === "");
-    const empty2 = phones2.every((v) => v === "");
-    console.log(empty, empty2);
+    const empty = phones.some((v) => v === "");
+    const empty2 = phones2.some((v) => v === "");
     phones.length === 0 || !empty || !empty2 || phones2.length === 0
       ? (setPhones([...phones, ""]), setPhones2([...phones2, ""]))
       : toast.call("", "there is an empty value fill it first !");
@@ -60,7 +58,6 @@ export const DataProvider = ({ children }) => {
   const handleRemoveValueRowElements = (val, index) => {
     const uVs = [...phones];
     const uVs2 = [...phones2];
-    console.log(index);
     const new2L = uVs.filter((item, index1) => index1 !== index);
     const new2L2 = uVs2.filter((item, index1) => index1 !== index);
     setPhones(new2L);
@@ -68,16 +65,15 @@ export const DataProvider = ({ children }) => {
   };
 
   const handleImage = (e, id) => {
-    id === 1 && setImage(e.target.files[0]);
+    // id === 1 && setImage(e.target.files);
+    id === 1 && setImage(Array.from(e.target.files));
     id === 2 && setImage2(e.target.files[0]);
     id === 3 && setVideo(e.target.files[0]);
   };
 
   // ===============================================================
   const handleAddvalueRow = () => {
-    const empty = fv.every((v) => v === "");
-    console.log(empty);
-    console.log(fv.length);
+    const empty = fv.some((v) => v === "");
     fv.length === 0 || !empty
       ? sfv([...fv, ""])
       : toast.call("", "there is an empty value fill it first !");

@@ -32,7 +32,7 @@ const EditYellowPageServices = () => {
         className="w-full p-6 rounded-lg shadow-md bg-white bg-clip-padding 
       backdrop-filter backdrop-blur-lg bg-opacity-0 "
       >
-        <h1 className="text-base font-semibold text-start mt-5 text-gray-900">
+        <h1 className="text-base font-semibold text-start mt-5 text-gray-200">
           Edit SERVICE
         </h1>
         <form onSubmit={handleSubmit}>

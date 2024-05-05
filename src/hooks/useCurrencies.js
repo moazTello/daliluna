@@ -21,12 +21,10 @@ const useCurrencies = () => {
         }
       );
       const data = res.data.data;
-      console.log(data);
       if (data.error) {
         throw new Error(data.error);
       }
       setCurrencies(data);
-      console.log(data);
     } catch (err) {
       toast.error(err.message);
     } finally {

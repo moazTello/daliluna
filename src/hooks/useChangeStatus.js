@@ -7,7 +7,6 @@ const useChangePostStatuse = () => {
   const [loadingDeleteDepartmentPostStatus, setLoading] = useState(false);
   const ChangePostStatus = async ( departmentId, postId, enable ) => {
     try {
-        console.log(departmentId, postId );
       const conferm = confermation();
       if (!conferm) return;
       setLoading(true);

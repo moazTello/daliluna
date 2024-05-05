@@ -32,7 +32,6 @@ const TableDesy = ({ children, icon, field }) => {
                 <td>LOGO</td>
                 <td>NUMBER_OF_VISITORS</td>
                 <td>CALLING</td>
-                <td>PHONE_NUBMER</td>
                 <td>TIME_OPEN</td>
                 <td>WEB_SITE</td>
                 <td>YOUTUBE</td>
@@ -101,7 +100,6 @@ const TableDesy = ({ children, icon, field }) => {
                 <td>LOGO</td>
                 <td>NUMBER_OF_VISITORS</td>
                 <td>CALLING</td>
-                <td>PHONE_NUBMER</td>
                 <td>TIME_OPEN</td>
                 <td>WEB_SITE</td>
                 <td>YOUTUBE</td>
